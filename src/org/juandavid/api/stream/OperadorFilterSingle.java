@@ -10,13 +10,12 @@ public class OperadorFilterSingle {
 
     public static void main(String[] args) {
 
-        Stream<Usuario> nombres = Stream
+        Usuario usuario = Stream
                 .of("Patí serna", "Paco molina ", "Pepe mena", "Pepe arias", "Pepe Garcia")
                 .map(nombre -> new Usuario(nombre.split(" ")[0], nombre.split(" ")[1]))
-                .filter(user -> user.getNombre().equals("Pepe"))
-                .peek(System.out::println);
+                .filter(user -> user.getId().equals(3))
+                .findFirst().get();
 
-        Optional<Usuario> usuario = nombres.findFirst();
         System.out.println(usuario);
 
 
