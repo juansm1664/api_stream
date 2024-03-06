@@ -12,7 +12,13 @@ public class OperadorFilter {
         Stream<Usuario> nombres = Stream
                 .of("Patí serna", "Paco molina ", "Pepe mena", "Pepe arias", "Pepe Garcia")
                 .map(nombre -> new Usuario(nombre.split(" ")[0], nombre.split(" ")[1]))
-                .filter(user -> user.getNombre().equals("Pepe"))
+                //.filter(user -> user.getNombre().equals("Pepe"))
+                .flatMap(user ->{
+                    if(user.getNombre().equals("Pepe")){
+                        return Stream.of(user);
+                    }
+                    return Stream.empty();
+                })
                 .peek(System.out::println);
 
         List<Usuario> lista = nombres.toList();

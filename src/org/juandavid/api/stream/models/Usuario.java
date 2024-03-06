@@ -1,5 +1,6 @@
 package org.juandavid.api.stream.models;
 
+import java.util.Objects;
 import java.util.PrimitiveIterator;
 
 public class Usuario {
@@ -47,5 +48,18 @@ public class Usuario {
         return
                 nombre + " " +
                  apellido ;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Usuario usuario = (Usuario) o;
+        return Objects.equals(nombre, usuario.nombre) && Objects.equals(apellido, usuario.apellido);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(nombre, apellido);
     }
 }
