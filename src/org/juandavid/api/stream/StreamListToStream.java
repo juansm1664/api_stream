@@ -4,6 +4,7 @@ import org.juandavid.api.stream.models.Usuario;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Stream;
 
 public class StreamListToStream {
     public static void main(String[] args) {
@@ -14,9 +15,21 @@ public class StreamListToStream {
         lista.add(new Usuario("Luci","Pastraña"));
         lista.add(new Usuario("Sergio","Gonzales"));
         lista.add(new Usuario("Laura ","Ortiz"));
+        lista.add(new Usuario("Pepe","lalo"));
 
-        lista.stream().map(user ->user.getNombre().toUpperCase().concat(" ")
+
+        Stream<String> nombres =  lista.stream()
+                .map(user ->user.getNombre().toUpperCase().concat(" ")
                 .concat(user.getApellido().toUpperCase()))
-                .forEach(System.out::println);
+                .flatMap(nombre ->{
+                    if(nombre.contains("Pepe".toUpperCase())){
+                        return Stream.of(nombre);
+                    }
+                    return Stream.empty();
+                })
+                .map(String::toLowerCase)
+                .peek(System.out::println);
+
+        System.out.println(nombres.count());
     }
 }
